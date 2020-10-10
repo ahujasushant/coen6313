@@ -9,7 +9,6 @@ def create_app(test_config=None) -> Flask:
     app = Flask(__name__, instance_relative_config=True)
 
     # use the modified encoder class to handle ObjectId & datetime object while jsonifying the response.
-    app.json_encoder = JSONEncoder
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -34,7 +33,7 @@ def create_app(test_config=None) -> Flask:
     # a simple page that says hello
     @app.route('/')
     def welcome():
-        return 'Welcome..!!'
+        return render_template("welcome.html")
 
     return app
 
