@@ -2,7 +2,7 @@ import os
 import json
 from flask import Flask, render_template
 import auth, logging
-
+from pymongo import MongoClient
 
 def create_app(test_config=None) -> Flask:
     # create and configure the app
@@ -30,13 +30,18 @@ def create_app(test_config=None) -> Flask:
     app.logger.setLevel(logging.DEBUG)
     app.register_blueprint(auth.bp)
 
+    client = MongoClient('localhost', 27017)
+    db = client['TEST-DATA']
+    collection = db['sample']
+    post1 = {"id":2,"name":"abc"}
+    collection.insert_one(post1)
+
     # a simple page that says hello
     @app.route('/')
     def welcome():
         return render_template("welcome.html")
 
     return app
-
 
 if __name__ == "__main__":
     app = create_app()
