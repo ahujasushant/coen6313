@@ -2,6 +2,7 @@ import os
 import json
 from flask import Flask, render_template
 import auth, logging
+from pymongo import MongoClient
 
 
 def create_app(test_config=None) -> Flask:
@@ -29,6 +30,9 @@ def create_app(test_config=None) -> Flask:
 
     app.logger.setLevel(logging.DEBUG)
     app.register_blueprint(auth.bp)
+
+    client = MongoClient('localhost', 27017)
+    db = client['COEN-6313']
 
     # a simple page that says hello
     @app.route('/')
