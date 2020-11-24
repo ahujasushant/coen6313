@@ -1,15 +1,17 @@
 import os
-import json
+import flask
+
 from flask import Flask, render_template
-import auth, logging
 from pymongo import MongoClient
+
+import auth
+import logging
+from forms import *
 
 
 def create_app(test_config=None) -> Flask:
-    # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
-    # use the modified encoder class to handle ObjectId & datetime object while jsonifying the response.
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -33,23 +35,31 @@ def create_app(test_config=None) -> Flask:
 
     client = MongoClient('localhost', 27017)
     db = client['COEN-6313']
+    hospital_collection = db['hospitals']
+    doctor_collection = db['doctors']
+    image_collection = db['images']
 
-    # a simple page that says hello
     @app.route('/')
     def welcome():
         return render_template("welcome.html")
+
+    @app.route('/register', methods=['GET', 'POST'])
+    def register():
+        form = RegistrationForm()
+        if form.validate_on_submit():
+            # Filter the details from the input form
+            # Store them into doctors collection
+            flask.flash('Congrats')
+            return flask.redirect(flask.url_for('welcome'))
+        return render_template("register.html", form=form)
+
+    # Create a method for login and control it's session values
 
     return app
 
 
 if __name__ == "__main__":
     app = create_app()
-    # This is so that we can configure the host and port from the config .settings.cfg
-    # and simply run `python app.py`
-    # There is no way to run using `flask run` and have flask use a host or port from
-    # a config file.
-    #
-    # YOu can alternatively run `flask run --host <HOSTNAME> --port <PORT>`
     app.run(
         host=app.config.get("FLASK_SERVER_HOST"),
         port=app.config.get("FLASK_SERVER_PORT"),
