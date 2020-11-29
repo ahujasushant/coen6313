@@ -2,6 +2,7 @@ import os
 import flask
 
 from flask import Flask, render_template
+import bcrypt
 from pymongo import MongoClient
 
 import auth
@@ -47,13 +48,30 @@ def create_app(test_config=None) -> Flask:
     def register():
         form = RegistrationForm()
         if form.validate_on_submit():
-            # Filter the details from the input form
-            # Store them into doctors collection
-            flask.flash('Congrats')
-            return flask.redirect(flask.url_for('welcome'))
-        return render_template("register.html", form=form)
+            existing_user = doctor_collection.find({'name': form.full_name.data})
+            if existing_user is None:
+                hashpass = bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt())
+                doctor = {"full_name": form.full_name.data, "email": form.email.data, "password": hashpass}
+                doctor_collection.insert_one(doctor)
+                flask.session['full_name'] = form.full_name.data
+                return flask.redirect(flask.url_for('welcome'))
+            return 'That email already exists!'
+
+        return render_template('register.html',form=form)
 
     # Create a method for login and control it's session values
+    @app.route('/login', methods=['GET', 'POST'])
+    def login():
+        form = LoginForm()
+        if form.validate_on_submit():
+            login_user = doctor_collection.find_one({'full_name': form.full_name.data})
+            if login_user:
+                if bcrypt.checkpw(form.password.data.encode('utf-8'),login_user['password']):
+                    flask.session['full_name'] = form.full_name.data
+                    return flask.redirect(flask.url_for('welcome'))
+            return 'Invalid username/password combination'
+
+        return flask.render_template('login.html',form=form)
 
     return app
 

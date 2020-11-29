@@ -12,3 +12,8 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
 # Make a LoginFormm Class with values email and password.
+class LoginForm(FlaskForm):
+    full_name = StringField("Name", validators=[DataRequired()])
+    email = StringField("Doctor's Email", validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
