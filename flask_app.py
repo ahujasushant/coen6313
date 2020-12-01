@@ -9,14 +9,22 @@ bootstrap = Bootstrap(app)
 
 # creating our routes
 @app.route('/')
-def index():
-    return render_template('index.html', content="data")
+def base():
+    return render_template('base.html', content="data")
 
+@app.route('/about')
+def about():
+    return render_template('about.html', content="data")
 
 # contact routes
 @app.route('/contact')
 def contact():
     return render_template('contact_doctors.html')
+
+# logout routes
+@app.route('/logout')
+def contact():
+    return render_template('logout.html')
 
 
 # run flask app

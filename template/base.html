@@ -1,54 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %} Project_COEN6313{% endblock %}</title>
- 
-    <link href="{{url_for('static', filename = 'static/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <title>Bootstrap Tutorial Sample Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
-<body>
- 
- 
- 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
- 
-      <a class="navbar-brand" href="#">About ThoraXray</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md">
+  <a class="navbar-brand" href="#">Logo</a>
+  <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
- 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+  <div class="collapse navbar-collapse" id="main-navigation">
+    <ul class="navbar-nav">
+      <li class="nav-item">
         <a class="nav-link" href="#">Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contact Doctors</a>
+        <a class="nav-link" href="#">About</a>
       </li>
-        
-          <li class="nav-item">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Contact</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="#">Logout</a>
       </li>
- 
- 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
   </div>
- 
-  </div>
- 
-    <a href=""><button class="btn btn-success navbar-btn">Login</button> </a>
-     <a href=""><button class="btn btn-success navbar-btn">Signup</button> </a>
 </nav>
- 
- 
+<div class="overlay"></div>
+<header class="page-header header container-fluid"
+$(document).ready(function(){
+  $('.header').height($(window).height());
+})>
+  </header>
+  <div class="description">
+  <h1>Welcome to the Home Page!</h1>
+  <p>Add description</p>
+    <button class="btn btn-outline-secondary btn-lg">click here!</button>
+</div>
+<div class="container features">
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h3 class="feature-title">Doctors</h3>
+      <img src="images/img1.jpg" class="img-fluid">
+      <p>give description</p>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h3 class="feature-title">Hospitals</h3>
+      <img src="images/img2.jpg" class="img-fluid">
+      <p>give description</p>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+    </div>
+  </div>
+</div>
+<h3 class="feature-title">Get in Touch!</h3>
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Name" name="">
+</div>
+<div class="form-group">
+  <input type="email" class="form-control" placeholder="Email Address" name="email">
+</div>
+<div class="form-group">
+  <textarea class="form-control" rows="4"></textarea>
+</div>
 
- 
-<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
- 
+<input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
+
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-12">
+      <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+      <p>contentA</p>
+      <p>contentB</p>
+      </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <h6 class="text-uppercase font-weight-bold">Contact</h6>
+      <p>group 3 Coen 6313
+      <br/>info@mywebsite.com
+      <br/>+ 01 234 567 88
+      <br/>+ 01 234 567 89</p>
+    </div>
+  </div>
+  <div class="footer-copyright text-center">© 2020 Copyright: ThoraXray.com
+  </div>
+</footer>
+<script src="main.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
