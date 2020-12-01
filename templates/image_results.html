@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+
+<h2>Horizontal Headings:</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Diseases</th>
+    <th>Predictions</th>
+    <th>Threshold Results</th>
+  </tr>
+    {% for d in diseases %}
+        <tr>
+            <td>{{ d }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+{##}
+{#<!DOCTYPE html>#}
+{#<h1>Welcome..!!</h1>#}
+{#<h2>Please fill the form below to Login</h2>#}
+{#<table class="table table-bordered">#}
+{#    <thead class="thead-dark">#}
+{#    <tr>#}
+{#        <th scope="col">{{ diseases[0] }}</th>#}
+{#        <th scope="col">{{ diseases[1] }}</th>#}
+{#        <th scope="col">{{ diseases[2] }}</th>#}
+{#        <th scope="col">{{ diseases[3] }}</th>#}
+{#        <th scope="col">{{ diseases[4] }}</th>#}
+{#        <th scope="col">{{ diseases[5] }}</th>#}
+{#        <th scope="col">{{ diseases[6] }}</th>#}
+{#        <th scope="col">{{ diseases[7] }}</th>#}
+{#        <th scope="col">{{ diseases[8] }}</th>#}
+{#        <th scope="col">{{ diseases[9] }}</th>#}
+{#        <th scope="col">{{ diseases[10] }}</th>#}
+{#        <th scope="col">{{ diseases[11] }}</th>#}
+{#        <th scope="col">{{ diseases[12] }}</th>#}
+{#        <th scope="col">{{ diseases[13] }}</th>#}
+{#    </tr>#}
+{#    </thead>#}
+{##}
+{#    <tbody>#}
+{#    <tr>#}
+{#        {% for result in predictions %}#}
+{#            <td scope="col">{{ result }}</td>#}
+{#        {% endfor %}#}
+{#    </tr>#}
+{#    <tr>#}
+{#        {% for t_result in threshold_result %}#}
+{#            <td scope="col">{{ t_result }}</td>#}
+{#        {% endfor %}#}
+{#    </tr>#}
+{#    </tbody>#}
+{#</table>#}
+<body>
+<img src="{{url_for('static', filename=heat_map_image)}}" align="middle">
+</body>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<h1>Welcome..!!</h1>
+<h2>Please fill the form below to Login</h2>
+<form action=""  method="post">
+    <center><p>Please fill in this form to login:</p></center>
+
+    {{ form.hidden_tag() }}
+    <center>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=64) }}<br>
+            {% for error in form.email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+            {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+                <span class="button-login">
+                    {{ form.submit() }}
+                </span>
+        </p>
+    </center>
+</form>

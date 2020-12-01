@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<h1>Welcome..!!</h1>
+<h2>Please fill the form below to Login</h2>
+<form method="POST" enctype="multipart/form-data">
+    <center><p>Please Upload the xray image:</p></center>
+
+    {{ form.hidden_tag() }}
+    <center>
+        <p>
+            {{ form.image.label }}<br>
+            {{ form.image(size=64) }}<br>
+            {% for error in form.image.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+                <span class="button-login">
+                    {{ form.submit() }}
+                </span>
+        </p>
+    </center>
+</form>
