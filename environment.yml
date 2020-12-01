@@ -9,13 +9,19 @@ dependencies:
   - ca-certificates=2020.10.14=0
   - certifi=2020.6.20=py38_0
   - click=7.1.2=py_0
+  - dnspython=1.16.0=py38_0
   - flask=1.1.2=py_0
+  - flask-wtf=0.14.3=py_0
   - itsdangerous=1.1.0=py_0
   - jinja2=2.11.2=py_0
+  - krb5=1.18.2=h75d18d8_0
+  - libcurl=7.71.1=h8a08a2b_1
   - libcxx=10.0.0=1
   - libedit=3.1.20191231=h1de35cc_1
   - libffi=3.3=hb1e8313_2
+  - libssh2=1.9.0=ha12b0ac_1
   - markupsafe=1.1.1=py38h1de35cc_1
+  - mongodb=4.0.3=hccea1a4_0
   - ncurses=6.2=h0a44026_1
   - openssl=1.1.1h=haf1e3a3_0
   - pip=20.2.3=py38_0
@@ -29,6 +35,7 @@ dependencies:
   - tk=8.6.10=hb0a8c7a_0
   - werkzeug=1.0.1=py_0
   - wheel=0.35.1=py_0
+  - wtforms=2.3.3=py_0
   - xz=5.2.5=h1de35cc_0
   - zlib=1.2.11=h1de35cc_3
 prefix: /Users/sushantahuja/opt/anaconda3/envs/coen-6313-env

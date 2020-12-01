@@ -5,14 +5,7 @@
     <center><p>Please fill in this form to login:</p></center>
 
     {{ form.hidden_tag() }}
-    <center><p>
-        {{ form.full_name.label }}<br>
-        {{ form.full_name(size=32) }}<br>
-        {% for error in form.full_name.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-
-    </p>
+    <center>
         <p>
             {{ form.email.label }}<br>
             {{ form.email(size=64) }}<br>

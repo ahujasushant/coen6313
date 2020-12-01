@@ -1,13 +1,18 @@
 import os
 import flask
-
-from flask import Flask, render_template
+import numpy as np
+from flask import Flask, render_template, request
 import bcrypt
-from pymongo import MongoClient
+import pymongo
+import service
+import dnspython
+from service import HeatMapGenerator, DISEASES
 
 import auth
 import logging
 from forms import *
+
+THRESHOLDS = [0.1] * 14
 
 
 def create_app(test_config=None) -> Flask:
@@ -22,10 +27,8 @@ def create_app(test_config=None) -> Flask:
         # load the instance config, if it exists, when not testing
         app.config.from_pyfile('config.py', silent=True)
     else:
-        # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -34,11 +37,12 @@ def create_app(test_config=None) -> Flask:
     app.logger.setLevel(logging.DEBUG)
     app.register_blueprint(auth.bp)
 
-    client = MongoClient('localhost', 27017)
-    db = client['COEN-6313']
-    hospital_collection = db['hospitals']
-    doctor_collection = db['doctors']
-    image_collection = db['images']
+    client = pymongo.MongoClient(
+        "mongodb+srv://coen-6313:UetDz4VzcAmvyM0w@coen-6313.8dgrr.mongodb.net/coen_6313?retryWrites=true&w=majority")
+    db = client.coen_6313
+    hospital_collection = db.hospitals
+    doctor_collection = db.doctors
+    image_collection = db.images
 
     @app.route('/')
     def welcome():
@@ -48,30 +52,51 @@ def create_app(test_config=None) -> Flask:
     def register():
         form = RegistrationForm()
         if form.validate_on_submit():
-            existing_user = doctor_collection.find({'name': form.full_name.data})
+            existing_user = doctor_collection.find_one({'email': form.email.data})
             if existing_user is None:
                 hashpass = bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt())
                 doctor = {"full_name": form.full_name.data, "email": form.email.data, "password": hashpass}
                 doctor_collection.insert_one(doctor)
-                flask.session['full_name'] = form.full_name.data
+                flask.session['full_name'] = form.email.data
                 return flask.redirect(flask.url_for('welcome'))
-            return 'That email already exists!'
 
-        return render_template('register.html',form=form)
+        return render_template('register.html', form=form)
 
     # Create a method for login and control it's session values
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         form = LoginForm()
         if form.validate_on_submit():
-            login_user = doctor_collection.find_one({'full_name': form.full_name.data})
+            login_user = doctor_collection.find_one({'email': form.email.data})
             if login_user:
-                if bcrypt.checkpw(form.password.data.encode('utf-8'),login_user['password']):
-                    flask.session['full_name'] = form.full_name.data
+                if bcrypt.checkpw(form.password.data.encode('utf-8'), login_user['password']):
+                    flask.session['full_name'] = form.email.data
                     return flask.redirect(flask.url_for('welcome'))
-            return 'Invalid username/password combination'
 
-        return flask.render_template('login.html',form=form)
+        return flask.render_template('login.html', form=form)
+
+    @app.route('/diagnose_image', methods=['GET', 'POST'])
+    def diagnose_image():
+        form = ImageForm()
+        if request.method == 'POST':
+            f_name = form.image.data.filename
+            form.image.data.save(f_name)
+            predictions_tensor = service.diagnose(f_name)
+            threshold_result = []
+            for r in predictions_tensor:
+                threshold_result.append(r.numpy() > np.array(THRESHOLDS))
+
+            heat_map = HeatMapGenerator()
+            heat_map.generator(f_name, './static/heat_maps/' + f_name)
+            heat_map_image = '/heat_maps/' + f_name
+
+            os.remove(f_name)
+            predictions = predictions_tensor.squeeze().tolist()
+            return flask.render_template('image_results.html', predictions=predictions,
+                                         threshold_result=threshold_result[0], diseases=DISEASES,
+                                         heat_map_image=heat_map_image)
+
+        return flask.render_template('image_form.html', form=form)
 
     return app
 
@@ -79,6 +104,6 @@ def create_app(test_config=None) -> Flask:
 if __name__ == "__main__":
     app = create_app()
     app.run(
-        host=app.config.get("FLASK_SERVER_HOST"),
-        port=app.config.get("FLASK_SERVER_PORT"),
+        host='0.0.0.0',
+        port=8000,
     )
