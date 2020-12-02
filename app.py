@@ -92,9 +92,30 @@ def create_app(test_config=None) -> Flask:
 
             os.remove(f_name)
             predictions = predictions_tensor.squeeze().tolist()
+            data = None
+            if True in threshold_result[0]:
+                import requests
+
+                URL = "https://discover.search.hereapi.com/v1/discover"
+                latitude = 45.5017
+                longitude = -73.5673
+                api_key = '2SIwAzBiMjzkjmpBa3rqv2cETbWiPbOaedzsbDmsSQI'
+                query = 'hospitals'
+                limit = 5
+
+                PARAMS = {
+                    'apikey': api_key,
+                    'q': query,
+                    'limit': limit,
+                    'at': '{},{}'.format(latitude, longitude)
+                }
+
+                # sending get request and saving the response as response object
+                r = requests.get(url=URL, params=PARAMS)
+                data = r.json()
             return flask.render_template('image_results.html', predictions=predictions,
                                          threshold_result=threshold_result[0], diseases=DISEASES,
-                                         heat_map_image=heat_map_image)
+                                         heat_map_image=heat_map_image, recommendation=data, count=limit)
 
         return flask.render_template('image_form.html', form=form)
 
