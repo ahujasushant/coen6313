@@ -1,11 +1,13 @@
 import os
+from typing import Dict
+
 import flask
 import numpy as np
 from flask import Flask, render_template, request
 import bcrypt
 import pymongo
 import service
-import dnspython
+import dns
 from service import HeatMapGenerator, DISEASES
 
 import auth
@@ -75,47 +77,64 @@ def create_app(test_config=None) -> Flask:
 
         return flask.render_template('login.html', form=form)
 
+    def diagnose_img(img_path: str) -> Dict:
+        f_name = img_path
+        predictions_tensor = service.diagnose(f_name)
+        threshold_result = []
+        for r in predictions_tensor:
+            threshold_result.append(r.numpy() > np.array(THRESHOLDS))
+        threshold_result = threshold_result[0].tolist()
+        result = {}
+        heat_map = HeatMapGenerator()
+        heat_map.generator(f_name, './static/heat_maps/' + f_name)
+        heat_map_image = '/heat_maps/' + f_name
+        result["heat_map_image"] = heat_map_image
+
+        predictions = predictions_tensor.squeeze().tolist()
+        result["predictions"] = predictions
+        result["threshold_result"] = threshold_result
+        if True in threshold_result:
+            import requests
+
+            URL = "https://discover.search.hereapi.com/v1/discover"
+            latitude = 45.5017
+            longitude = -73.5673
+            api_key = '2SIwAzBiMjzkjmpBa3rqv2cETbWiPbOaedzsbDmsSQI'
+            query = 'hospitals'
+            limit = 5
+
+            PARAMS = {
+                'apikey': api_key,
+                'q': query,
+                'limit': limit,
+                'at': '{},{}'.format(latitude, longitude)
+            }
+
+            # sending get request and saving the response as response object
+            r = requests.get(url=URL, params=PARAMS)
+            data = r.json()
+            result["recommendation"] = data
+        result["diseases"] = DISEASES
+        return result
+
+    @app.route('/rest/diagnose_image', methods=['POST'])
+    def diagnose_image_rest():
+        form = ImageForm()
+        f_name = form.image.data.filename
+        form.image.data.save(f_name)
+        result = diagnose_img(f_name)
+        os.remove(f_name)
+        return result
+
     @app.route('/diagnose_image', methods=['GET', 'POST'])
     def diagnose_image():
         form = ImageForm()
         if request.method == 'POST':
             f_name = form.image.data.filename
             form.image.data.save(f_name)
-            predictions_tensor = service.diagnose(f_name)
-            threshold_result = []
-            for r in predictions_tensor:
-                threshold_result.append(r.numpy() > np.array(THRESHOLDS))
-
-            heat_map = HeatMapGenerator()
-            heat_map.generator(f_name, './static/heat_maps/' + f_name)
-            heat_map_image = '/heat_maps/' + f_name
-
+            result = diagnose_img(f_name)
             os.remove(f_name)
-            predictions = predictions_tensor.squeeze().tolist()
-            data = None
-            if True in threshold_result[0]:
-                import requests
-
-                URL = "https://discover.search.hereapi.com/v1/discover"
-                latitude = 45.5017
-                longitude = -73.5673
-                api_key = '2SIwAzBiMjzkjmpBa3rqv2cETbWiPbOaedzsbDmsSQI'
-                query = 'hospitals'
-                limit = 5
-
-                PARAMS = {
-                    'apikey': api_key,
-                    'q': query,
-                    'limit': limit,
-                    'at': '{},{}'.format(latitude, longitude)
-                }
-
-                # sending get request and saving the response as response object
-                r = requests.get(url=URL, params=PARAMS)
-                data = r.json()
-            return flask.render_template('image_results.html', predictions=predictions,
-                                         threshold_result=threshold_result[0], diseases=DISEASES,
-                                         heat_map_image=heat_map_image, recommendation=data, count=limit)
+            return flask.render_template('image_results.html', count=5, **result)
 
         return flask.render_template('image_form.html', form=form)
 

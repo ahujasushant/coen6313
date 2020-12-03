@@ -1,5 +1,8 @@
-<h1>Welcome..!!</h1>
-<h2>COEN 6313</h2>
-<h2>Chest Disease detection using Radiographs</h2>
+{% block css %}
+{% include 'background-style.html' %}
+{% endblock %}
 
-<a href="/diagnose_image">Upload Image</a>
+{% extends 'navbar.html' %}
+{% block content %}
+    <img src="/static/logo.png" alt="image" style="width:100%; height:80%;">
+{% endblock %}

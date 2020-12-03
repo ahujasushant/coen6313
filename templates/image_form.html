@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<h1>Welcome..!!</h1>
-<h2>Please fill the form below to Login</h2>
-<form method="POST" enctype="multipart/form-data">
-    <center><p>Please Upload the xray image:</p></center>
+{% block css %}
+    {% include 'background-style.html' %}
+{% endblock %}
+{% extends 'navbar.html' %}
+{% block content %}
+    <div style="width: auto">
+        <form method="POST" enctype="multipart/form-data">
+            <center><h1>Please Upload the Radiograph:</h1></center>
 
-    {{ form.hidden_tag() }}
-    <center>
-        <p>
-            {{ form.image.label }}<br>
-            {{ form.image(size=64) }}<br>
-            {% for error in form.image.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-                <span class="button-login">
-                    {{ form.submit() }}
-                </span>
-        </p>
-    </center>
-</form>
+            <div style="
+    display: inline-flex;
+    width: auto;
+    align-items: center;
+    margin-top: 50px;">
+
+                {{ form.image(size=64, style="left: 200%;") }}<br>
+
+                {% for error in form.image.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+
+                {{ form.submit(style="position: absolute;left: 770px;") }}
+
+            </div>
+        </form>
+    </div>
+{% endblock %}

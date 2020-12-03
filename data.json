@@ -1,0 +1,20 @@
+{
+  "hospital":{
+    "object_id": "73287shj2",
+    "name": "Hospital Name",
+    "address": "123, Street Name, Montreal",
+    "doctor_ids": "['745jdsj27dssbj']"
+  },
+  "doctor": {
+    "object_id": "sdsjh2376ssd",
+    "full_name": "Doctor Name",
+    "email": "docotr@hospital.com",
+    "password": "kjbaksjcbiubiuudicbsufg3u",
+    "hospital_id": "73287shj2"
+  },
+  "image": {
+    "object_id": "32ebjhbs92",
+    "name": "filename.png",
+    "doctor_id": "sdsjh2376ssd"
+  }
+}

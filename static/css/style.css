@@ -1,0 +1,441 @@
+@font-face {
+    font-family:"FF Tisa";
+    src: url("/static/fonts/TE111761.ttf") /* EOT file for IE */
+}
+@font-face {
+    font-family:"FF Tisa boldslant";
+    src: url("/static/fonts/TisaOT-BoldIta.otf") /* EOT file for IE */
+}
+
+h1{
+    font-family: 'FF Tisa boldslant', 'San', serif;
+}
+
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family: 'FF Tisa', 'San', serif;
+    font-weight: 300;
+    //background-image: url("/static/sativa.png");
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
+    overflow-x: hidden !important;
+    width:100%;
+}
+
+.navbar{
+    opacity: 0.9;
+    vertical-align: middle;
+    padding: 10px;
+}
+#logo{
+    text-align: center;
+    position: fixed;
+    top:0px;
+    left:50%;
+    margin-left: -125px;
+    z-index: 99998;
+}
+#logo>a>img{
+    width: 250px;
+    min-width:200px;
+}
+ul.nav>li{
+    font-size: 130%;
+    font-weight: bolder;
+}
+
+hr.seperator {
+    visibility: hidden;
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+}
+
+.full-width{
+    width:100%;
+}
+.center{
+    text-align: center;
+}
+.left{
+    text-align: left;
+}
+.right{
+    text-align: right;
+}
+
+.border{
+    border:1px dashed;
+}
+li{
+    list-style-type: none;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+a:link {
+    color: black;
+}
+a:hover{
+    color: #dc4d38;
+}
+a:visited{
+    color:black;
+}
+
+.border{
+    border:1px dashed;
+}
+
+.featured{
+    text-align: center;
+}
+.featured>.feat{
+    font-weight: bolder;
+    font-size: 150%;
+    text-decoration: underline;
+    text-align: left;
+}
+.featured>.side_post{
+    text-align: left;
+    font-weight: bold;
+    font-size: 120%;
+    margin-bottom: 25px;
+    width:400px;
+}
+.featured>.side_post>a>img{
+    width:250px;
+}
+.newsletter{
+    border-radius: 10px;
+    border:7px solid rgba(202, 197, 197, 0.91);
+    background: rgba(202, 197, 197, 0.61);
+    width:320px;
+    min-width:230px;
+    padding:14px 1px 14px 15px;
+}
+.newsletter>.text{
+    margin-top: -5px;
+    font-size: 120%;
+    //font-weight: bold;
+}
+.newsletter>form>input{
+    width: 20px;
+}
+.fixedElement {
+    background-color: #c0c0c0;
+    width:100%;
+    z-index:100;
+}
+.follow_twitter{
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(15, 201, 254, 0.0);
+    width:310px;
+    min-width:200px;
+    padding:10px 1px 14px 15px;
+}
+#container {
+    margin: 0 auto;
+    margin-top: 50px;
+    width:100%;
+    overflow-x: hidden;
+    overflow: hidden;
+}
+
+
+.embeds{
+    width:100%;
+}
+
+
+.list {
+    margin-left: 200px;
+    max-width:920px;
+    height:100%;
+}
+
+.post{
+    padding-bottom: 100px;
+    min-width: 200px;
+    //border:1px dashed;
+}
+.hidden_link{
+    font-size: 60%;
+    text-align: right;
+    border:1px solid;
+    width:100%;
+    opacity: 0.1;
+}
+.title{
+    text-decoration: none;
+    font-size: 170%;
+    padding-bottom: 0px;
+    margin-bottom: -10px;
+    font-weight: bolder;
+}
+
+.post_page>.post>.title{
+    font-size: 200%;
+}
+
+.media{
+    max-width: 500px;
+    min-width: 200px;
+}
+
+iframe{
+    margin-top: 15px;
+    max-width: 640px !important;
+}
+
+.media>img{
+    min-width: 200px;
+}
+
+
+.right{
+    height:500px; 
+}
+
+
+.social{
+    text-align: left;
+    width:500px;
+    min-width:200px;
+    bottom:1px;
+    left:1px;
+    margin-top:5px;
+}
+
+.social>i{
+   opacity: 0.7
+}
+.social>i:hover{
+    opacity: 1;
+}
+.social>i{
+    margin-right: 25px;
+    cursor: pointer;
+}
+.social>a:link{
+    color:black;
+}
+.social>#special-share{
+    visibility: hidden;
+}
+
+
+#footer{
+    position: relative;
+    width:100%;
+    height:200px;
+    color:black;
+    background: rgba(200, 182, 180, 0.66);
+    margin-top: 100px;
+}
+#footer>.links{
+    position: absolute; 
+    bottom: 120px;
+    width:100%;
+    border:1px;
+    opacity: 0.4;
+    text-align: center;
+}
+#footer>.links>.link{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.fb-comments{
+    width:100%;
+}
+
+/**************
+ Media Queries
+***************/
+@media(max-width:868px){
+    .list{
+        margin-left: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
+        text-align: center;
+    }
+    .media{
+        width:100%;
+    }
+    .title{
+        text-align: center;
+    }
+    .social{
+        width:100%;
+        text-align: center;
+    }
+    .sider{
+        display:none;
+    }
+    .hidden_link{
+        display: none;
+    }
+    .about{
+        width:480px;
+    }
+    .module{
+        display:table-column;
+        margin-bottom:100px !important;
+        padding-bottom: 100px;
+    }
+
+}
+
+
+@media (max-width: 480px){
+    .module{
+        margin-bottom:100px !important;
+    }
+    .navbar{
+        padding: 0px;
+    }
+    #logo>a>img{
+        width: 170px;
+    }
+    .title{
+        text-align: left;
+        padding:top:1px;
+    }
+    .post{
+        padding-bottom: 30px;
+        padding-top: -90px;
+    }
+    .sider{
+        display:none;
+    }
+    .hidden_link{
+        display: none;
+    }
+    .about{
+        width:480px;
+    }
+    .social{
+        text-align: center;
+        margin-top:10px;
+        margin-bottom: -10px;
+    }
+    .social>.fa-facebook,.social>.fa-twitter,.social>.fa-google-plus-square{
+        display: none;
+    }
+    .social>#special-share{
+        visibility: visible;
+    }
+    .social>i{
+        opacity: 0.5;
+        font-size: 260%;
+    }
+    body{
+        overflow-x: hidden !important;
+    }
+    hr.seperator{
+        visibility: visible;
+    }
+    
+}
+
+@media (min-width: 500px) {
+  body {
+    //font-family: 'Dosis', sans-serif;
+  }
+}
+
+
+
+/*CUSTOM YOUTUBE SHHIZZZ*/
+
+.youtube-container { display: block; margin: 20px auto; width: 100%; max-width: 600px; }
+.youtube-player { display: block; width: 100%; /* assuming that the video has a 16:9 ratio */ padding-bottom: 56.25%; overflow: hidden; position: relative; width: 100%; height: 100%; cursor: hand; cursor: pointer; display: block; }
+img.youtube-thumb { bottom: 0; display: block; left: 0; margin: auto; max-width: 100%; width: 100%; position: absolute; right: 0; top: 0; height: auto }
+div.play-button { height: 72px; width: 72px; left: 50%; top: 50%; margin-left: -36px; margin-top: -36px; position: absolute; background: url("http://i.imgur.com/TxzC70f.png") no-repeat; }
+#youtube-iframe { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+
+
+/*GRID CSS */
+
+.grid-container{
+    width:100%;
+    padding:20px;
+    display: table;
+}
+
+.module {
+  display: table-cell;
+  //background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/skyscrapers.jpg);
+  background-repeat: no-repeat;
+  background-size:480px 360px;
+  width: 480px;
+  height: 360px;
+  position: relative;
+  overflow: hidden;
+  margin: 20px;
+  //border:1px solid;
+}
+.module > header {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 10px;
+  background: inherit;
+  background-attachment: fixed;
+  overflow: hidden;
+  border:1px solid rgba(0,0,0,0.80) ;
+  border-top: none;
+}
+.module > header::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: inherit;
+  background-attachment: fixed;
+  //-webkit-filter: blur(4px);
+  //filter: blur(4px);
+}
+.module > header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(253, 253, 253,1)
+}
+.module > header > h1 {
+  font-family: Sans-Serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  margin: 0;
+  //color: white;
+  position: relative;
+  z-index: 1;
+  font-weight: bold;
+  font-size: 170%;
+}
+
+.module>img{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
